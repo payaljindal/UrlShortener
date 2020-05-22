@@ -1,6 +1,0 @@
-POST http://localhost:5000/api/url/shorten
-Content-Type: application/json
-
-{
-    "longUrl": "https://www.youtube.com/watch?v=Z57566JBaZQ"
-}
