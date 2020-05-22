@@ -3,15 +3,14 @@ const router = express.Router();
 const validUrl = require('valid-url');
 const shortid = require('shortid');
 const config  = require('config');
+const Url = require('../models/url-model');
+const HttpError = require("../models/http-error");
 
-const Url = require('../models/url');
-
-// @route POST /API/URL/SHORTEN
-//@DESC CREATE SHORT URL
-
+// route to shorten the link
 router.post('/shorten',async (req, res) => {
 const { longUrl } = req.body;
 const baseUrl = config.get('baseUrl');
+
 //check base url
 if(!validUrl.isUri(baseUrl)) {
     return res.status(401).json('Invalid base url');
@@ -20,12 +19,13 @@ if(!validUrl.isUri(baseUrl)) {
 // Create url code
 const urlCode = shortid.generate();
 
-// Check Long Url
+// Check Long Url is valid or not
 if(validUrl.isUri(longUrl))
 {
     try{
         let url = await Url.findOne({longUrl});
 
+        // if longurl is shortened already, then it will return same shorturl
         if(url)
         {
             res.json(url);
@@ -42,12 +42,15 @@ if(validUrl.isUri(longUrl))
             res.json(url);
         }
 
-    } catch(err){
-        console.error(err);
-        res.status(500).json('Server error');
+    } catch (err) {
+        const error = new HttpError(
+            "Server error found, please try again later.",
+            500
+        );
+        return next(error);
     }
 } else{
-    res.status(401).json('Invalid long url ');
+    res.status(401).json('Invalid long url');
 }
 
 });

@@ -1,5 +1,5 @@
 const express = require('express');
-const connectDB = require('./config/db');
+const connectDB = require('./config/dbconnect');
 const app = express();
 
 //Connect to database
@@ -13,5 +13,4 @@ app.use('/api/url', require('./routes/url'))
 
 const port = 5000
 
-
-app.listen(port, () => console.log(`Server running on port ${port}`))
+app.listen(port);
