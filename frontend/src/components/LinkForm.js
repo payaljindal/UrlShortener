@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { Button } from '@material-ui/core';
+import './LinkForm.css';
 
 const classes = makeStyles((theme) => ({
     root: {
@@ -44,17 +45,24 @@ class LinkForm extends Component {
             <TextField
           id="outlined-textarea"
           label="Multiline Placeholder"
-          placeholder="Enter the url"
+          placeholder="Enter the URL"
           multilinevariant="outlined"
-          label="long-url"
+          label="URL"
         />
 
-            </form>
-            <div> <Button variant="contained" color="primary" className={ classes.button }> Submit </Button></div>
 
+            </form>
+            <div><Button variant="contained" color="primary" className={ classes.button }> Submit </Button> </div>
             </div>
         );
     }
 }
-
+/*<br></br>
+<TextField
+  id="outlined-textarea"
+  label="Multiline Placeholder"
+  placeholder="Enter the Domain"
+  multilinevariant="outlined"
+  label="Domain"
+/> */
 export default LinkForm;
